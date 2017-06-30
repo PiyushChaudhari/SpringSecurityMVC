@@ -1,0 +1,123 @@
+package com.application.init;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.logging.Logger;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
+
+import com.application.config.UrlMapping;
+import com.application.constants.AppConstant;
+import com.application.enums.UserType;
+import com.application.model.Permission;
+import com.application.model.Role;
+import com.application.model.User;
+import com.application.service.RoleService;
+import com.application.service.UserService;
+
+@Component
+public class BootStrap implements ApplicationListener<ContextRefreshedEvent> {
+
+	private static final Logger LOGGER = Logger.getLogger(BootStrap.class.getName());
+
+	@Autowired
+	RoleService roleService;
+
+	@Autowired
+	UserService userService;
+
+	@Autowired
+	PasswordEncoder passwordEncoder;
+
+	@Override
+	public void onApplicationEvent(ContextRefreshedEvent event) {
+		generateDefaultData();
+	}
+
+	public void generateDefaultData() {
+		LOGGER.info("************* Start Default Data *************");
+		Role adminRole = null;
+		if (roleService.countByName(AppConstant.DEFAULT_ROLE_ADMIN) == 0) {
+			adminRole = new Role();
+			adminRole.setName(AppConstant.DEFAULT_ROLE_ADMIN);
+
+			// Permission permissionAdmin = new Permission();
+			// permissionAdmin.setName("*:*");
+			// adminRole.addPermission(permissionAdmin);
+
+			for (Permission permission : UrlMapping.getPermissionListForAdmin()) {
+				adminRole.addPermission(permission);
+			}
+
+			roleService.save(adminRole);
+		}
+
+		Role adviserRole = null;
+		if (roleService.countByName(AppConstant.DEFAULT_ROLE_ADVISER) == 0) {
+			adviserRole = new Role();
+			adviserRole.setName(AppConstant.DEFAULT_ROLE_ADVISER);
+
+			for (Permission permission : UrlMapping.getPermissionListForAdviser()) {
+				adviserRole.addPermission(permission);
+			}
+			roleService.save(adviserRole);
+		}
+
+		Role userRole = null;
+		if (roleService.countByName(AppConstant.DEFAULT_ROLE_USER) == 0) {
+			userRole = new Role();
+			userRole.setName(AppConstant.DEFAULT_ROLE_USER);
+
+			for (Permission permission : UrlMapping.getPermissionListForUser()) {
+				userRole.addPermission(permission);
+			}
+			roleService.save(userRole);
+		}
+
+		/* Admin User */
+		if (userService.countByEmail("piyu181203@gmail.com") == 0) {
+			User adminUser = new User();
+			adminUser.setFirstName("Piyush");
+			adminUser.setLastName("Chaudhari");
+			adminUser.setEmail("piyu181203@gmail.com");
+			adminUser.setPasswordHash(passwordEncoder.encode("123"));
+			adminUser.setUserType(UserType.ADMIN);
+			Set<Role> roles = new HashSet<>();
+			roles.add(adminRole);
+			adminUser.setRole(roles);
+			userService.save(adminUser);
+		}
+
+		/* Adviser User */
+		if (userService.countByEmail("appu4u@gmail.com") == 0) {
+			User adviserUser = new User();
+			adviserUser.setFirstName("Aplan");
+			adviserUser.setLastName("Patel");
+			adviserUser.setEmail("appu4u@gmail.com");
+			adviserUser.setPasswordHash(passwordEncoder.encode("123"));
+			adviserUser.setUserType(UserType.ADVISER);
+			Set<Role> adviserRoles = new HashSet<>();
+			adviserRoles.add(adviserRole);
+			adviserUser.setRole(adviserRoles);
+			userService.save(adviserUser);
+		}
+		/* User */
+		if (userService.countByEmail("saurabh16388@gmail.com") == 0) {
+			User user = new User();
+			user.setFirstName("Saurabh");
+			user.setLastName("Chaudhari");
+			user.setEmail("saurabh16388@gmail.com");
+			user.setPasswordHash(passwordEncoder.encode("123"));
+			user.setUserType(UserType.USER);
+			Set<Role> userRoles = new HashSet<>();
+			userRoles.add(userRole);
+			user.setRole(userRoles);
+			userService.save(user);
+		}
+		LOGGER.info("************* End Default Data *************");
+	}
+}
