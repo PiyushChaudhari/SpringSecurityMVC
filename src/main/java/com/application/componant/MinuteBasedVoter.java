@@ -10,19 +10,19 @@ import org.springframework.security.web.FilterInvocation;
 
 import com.application.config.UrlMapping;
 
-public class MinuteBasedVoter implements AccessDecisionVoter {
+public class MinuteBasedVoter implements AccessDecisionVoter<Object> {
 	@Override
 	public boolean supports(ConfigAttribute attribute) {
 		return true;
 	}
 
 	@Override
-	public boolean supports(Class clazz) {
+	public boolean supports(Class<?> clazz) {
 		return true;
 	}
 
 	@Override
-	public int vote(Authentication authentication, Object object, Collection collection) {
+	public int vote(Authentication authentication, Object object, Collection<ConfigAttribute> collection) {
 
 		FilterInvocation fi = (FilterInvocation) object;
 		String currentUrl = fi.getRequestUrl();
@@ -44,10 +44,10 @@ public class MinuteBasedVoter implements AccessDecisionVoter {
 			sb.append("_" + urlDivider[2]);
 
 		String url = sb.toString().toUpperCase();
-		 System.out.println("Current URL:> " + url);
-		 System.out.println("Current URL:> " +
-		 authentication.getAuthorities().contains(url));
-		 System.out.println("Current URL:> " + authentication.getAuthorities());
+		// System.out.println("Current URL:> " + url);
+		// System.out.println("Current URL:> " +
+		// authentication.getAuthorities().contains(url));
+		// System.out.println("Current URL:> " + authentication.getAuthorities());
 		return authentication.getAuthorities().contains(new SimpleGrantedAuthority(url)) ? ACCESS_GRANTED : ACCESS_DENIED;
 
 		// return

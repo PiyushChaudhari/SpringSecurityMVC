@@ -26,6 +26,7 @@ public class UrlMapping {
 	public static final String CONTROLLER_USER_DELETE = "/delete/{id}";
 	public static final String CONTROLLER_USER_PROFILE = "/profile";
 	public static final String CONTROLLER_USER_UPDATE_PROFILE = "/updateProfile";
+	public static final String CONTROLLER_USER_ACTIVE = "/active";
 
 	public static String generateUrl(String... str) {
 		if (str.length == 0) {
@@ -43,7 +44,7 @@ public class UrlMapping {
 	public static String getLoginUrl() {
 		return new StringBuilder(CONTROLLER_AUTH).append(CONTROLLER_AUTH_LOGIN).toString();
 	}
-	
+
 	public static String getSignInUrl() {
 		return new StringBuilder(CONTROLLER_AUTH).append(CONTROLLER_AUTH_SIGN_IN).toString();
 	}
@@ -70,10 +71,15 @@ public class UrlMapping {
 	public static final String PERMISSION_USER_DELETE = "USER_DELETE";
 	public static final String PERMISSION_USER_PROFILE = "USER_PROFILE";
 	public static final String PERMISSION_USER_UPDATE_PROFILE = "USER_UPDATEPROFILE";
+	public static final String PERMISSION_USER_ACTIVE = "USER_ACTIVE";
 
 	public static List<Permission> getPermissionListForAdmin() {
 
 		List<Permission> permissionList = new ArrayList<>();
+
+		Permission userActiveList = new Permission();
+		userActiveList.setName(PERMISSION_USER_ACTIVE);
+		permissionList.add(userActiveList);
 
 		Permission userList = new Permission();
 		userList.setName(PERMISSION_USER_LIST);
@@ -93,8 +99,7 @@ public class UrlMapping {
 
 		return permissionList;
 	}
-	
-	
+
 	public static List<Permission> getPermissionListForAdviser() {
 
 		List<Permission> permissionList = new ArrayList<>();

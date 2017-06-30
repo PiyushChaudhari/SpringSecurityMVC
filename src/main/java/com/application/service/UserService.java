@@ -23,6 +23,8 @@ public interface UserService {
 	public User getLoggedInUser();
 
 	public Long countByEmail(String email);
-	
+
 	public void updateLoggedInUser(User user);
+
+	public List<User> getAllLoggedInUser();
 }

@@ -3,10 +3,8 @@ package com.application.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,11 +35,6 @@ public class AuthController {
 
 		ModelAndView modelAndView = new ModelAndView(
 				new StringBuilder(UrlMapping.CONTROLLER_AUTH).append(UrlMapping.CONTROLLER_AUTH_LOGIN).toString());
-		if (request.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION) != null)
-			modelAndView.addObject("error",
-					((BadCredentialsException) request.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION))
-							.getMessage());
-
 		return modelAndView;
 	}
 

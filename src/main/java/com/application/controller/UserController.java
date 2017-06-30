@@ -1,6 +1,7 @@
 package com.application.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -81,5 +82,13 @@ public class UserController {
 		redirectAttributes.addFlashAttribute("success", "Profile has been update successfully.");
 		return new ModelAndView("redirect:"
 				+ new StringBuilder(UrlMapping.CONTROLLER_USER).append(UrlMapping.CONTROLLER_USER_PROFILE).toString());
+	}
+
+	@RequestMapping(value = { UrlMapping.CONTROLLER_USER_ACTIVE }, method = RequestMethod.GET)
+	public ModelAndView active() {
+		ModelAndView mv = new ModelAndView(
+				new StringBuilder(UrlMapping.CONTROLLER_USER).append(UrlMapping.CONTROLLER_USER_ACTIVE).toString());
+		mv.addObject("userList", userService.getAllLoggedInUser());
+		return mv;
 	}
 }

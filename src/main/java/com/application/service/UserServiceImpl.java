@@ -1,12 +1,14 @@
 package com.application.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +22,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	public UserDao<User> userDao;
+
+	@Autowired
+	SessionRegistry sessionRegistry;
 
 	@Autowired
 	CustomAuthenticationProvider customAuthenticationProvider;
@@ -85,6 +90,12 @@ public class UserServiceImpl implements UserService {
 				u.getAuthorities());
 		Authentication result = customAuthenticationProvider.authenticate(request);
 		SecurityContextHolder.getContext().setAuthentication(result);
+	}
+
+	@Override
+	public List<User> getAllLoggedInUser() {
+		User u = getLoggedInUser();
+		return sessionRegistry.getAllPrincipals().stream().map(user -> (User)user).filter(element -> !element.getEmail().equals(u.getEmail())).collect(Collectors.toList());
 	}
 
 }

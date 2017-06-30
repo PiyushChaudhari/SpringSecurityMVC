@@ -18,6 +18,8 @@ public class LoginFailHandler extends SimpleUrlAuthenticationFailureHandler {
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
+
+		request.setAttribute("error", exception.getMessage());
 		super.setUseForward(true);
 		super.setDefaultFailureUrl(
 				new StringBuilder(UrlMapping.CONTROLLER_AUTH).append(UrlMapping.CONTROLLER_AUTH_SIGN_IN).toString());
