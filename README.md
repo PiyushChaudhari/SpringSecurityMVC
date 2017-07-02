@@ -9,3 +9,4 @@ This application demostrate how to use spring security in spring mvc application
 4) Custom AuthenticationFailureHandler
 5) Custom AccessDecisionVoter
 6) Update Current LoggedIn UserDetails
+7) Display All LoggedIn User In Application.
