@@ -11,6 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
@@ -102,6 +103,14 @@ public class AppConfig {
 		resolver.setSuffix(".jsp");
 		resolver.setViewClass(JstlView.class);
 		return resolver;
+	}
+
+	@Bean
+	public ReloadableResourceBundleMessageSource messageSource() {
+		ReloadableResourceBundleMessageSource messageBundle = new ReloadableResourceBundleMessageSource();
+		messageBundle.setBasename("classpath:i18n/messages");
+		messageBundle.setDefaultEncoding("UTF-8");
+		return messageBundle;
 	}
 
 }
