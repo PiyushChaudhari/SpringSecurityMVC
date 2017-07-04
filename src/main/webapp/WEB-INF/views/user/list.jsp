@@ -7,6 +7,9 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 
+<%@ taglib prefix="secure"
+	uri="http://www.springframework.org/secure/tags"%>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -29,19 +32,30 @@ function editUser(id) {
 <body>
 	<h1 align="center">User List</h1>
 
-	<sec:authorize access="isAuthenticated()">
+	<div align="center">
+		<sec:authorize access="isAuthenticated()">
 	Welcome, 
 	<sec:authentication property="principal.firstName" />
 		<sec:authentication property="principal.lastName" />
-		<a href="${pageContext.request.contextPath}/auth/signOut">Logout</a>| 
-		<a href="${pageContext.request.contextPath}/user/profile">Profile</a>
-	</sec:authorize>
+		<a href="${pageContext.request.contextPath}/auth/signOut">Logout</a> 
+		| <a href="${pageContext.request.contextPath}/user/profile">Profile</a>
 
+		<secure:authenticate
+			hasPermission="<%=com.application.config.UrlMapping.PERMISSION_USER_ACTIVE%>">
+			| <a href="${pageContext.request.contextPath}/user/active">LoggedIn
+				Users</a>
+		</secure:authenticate>
+
+	</sec:authorize>
+	</div>
+	
 	<c:if test="${success !=null}">
 		<h6 align="center">
 			<c:out value="${success}" />
 		</h6>
 	</c:if>
+	<br>
+	<br>
 	<table align="center" border="1">
 		<thead>
 			<tr>
@@ -67,10 +81,13 @@ function editUser(id) {
 							<td><c:out value="${user.firstName}" /></td>
 							<td><c:out value="${user.lastName}" /></td>
 							<td><c:out value="${user.email}" /></td>
-							<td><a
-								href="${pageContext.request.contextPath}/user/edit/${user.id}">Edit|</a>
-								<a href="javascript:void('0')"
-								onclick="deleteUser('${user.id}')">Delete</a>
+							<td>
+								<secure:authenticate hasPermission="<%=com.application.config.UrlMapping.PERMISSION_USER_EDIT%>">
+									<a href="${pageContext.request.contextPath}/user/edit/${user.id}">Edit</a>
+								</secure:authenticate>
+								<secure:authenticate hasPermission="<%=com.application.config.UrlMapping.PERMISSION_USER_DELETE%>">
+									| <a href="javascript:void('0')" onclick="deleteUser('${user.id}')">Delete</a>
+								</secure:authenticate>
 						</tr>
 					</c:forEach>
 				</c:when>

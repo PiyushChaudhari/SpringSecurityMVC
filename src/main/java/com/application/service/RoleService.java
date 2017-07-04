@@ -7,4 +7,6 @@ public interface RoleService {
 	public Long countByName(String name);
 
 	public Role save(Role role);
+
+	public Role get(String id);
 }

@@ -77,10 +77,6 @@ public class UrlMapping {
 
 		List<Permission> permissionList = new ArrayList<>();
 
-		Permission userActiveList = new Permission();
-		userActiveList.setName(PERMISSION_USER_ACTIVE);
-		permissionList.add(userActiveList);
-
 		Permission userList = new Permission();
 		userList.setName(PERMISSION_USER_LIST);
 		permissionList.add(userList);
@@ -89,6 +85,18 @@ public class UrlMapping {
 		userShow.setName(PERMISSION_USER_SHOW);
 		permissionList.add(userShow);
 
+		Permission userEdit = new Permission();
+		userEdit.setName(PERMISSION_USER_EDIT);
+		permissionList.add(userEdit);
+
+		Permission userUpdate = new Permission();
+		userUpdate.setName(PERMISSION_USER_UPDATE);
+		permissionList.add(userUpdate);
+
+		Permission userDelete = new Permission();
+		userDelete.setName(PERMISSION_USER_DELETE);
+		permissionList.add(userDelete);
+
 		Permission userProfile = new Permission();
 		userProfile.setName(PERMISSION_USER_PROFILE);
 		permissionList.add(userProfile);
@@ -96,6 +104,10 @@ public class UrlMapping {
 		Permission userUpdateProfile = new Permission();
 		userUpdateProfile.setName(PERMISSION_USER_UPDATE_PROFILE);
 		permissionList.add(userUpdateProfile);
+
+		Permission userActiveList = new Permission();
+		userActiveList.setName(PERMISSION_USER_ACTIVE);
+		permissionList.add(userActiveList);
 
 		return permissionList;
 	}

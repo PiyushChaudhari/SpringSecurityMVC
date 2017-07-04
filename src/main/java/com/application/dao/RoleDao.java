@@ -9,4 +9,6 @@ public interface RoleDao<T extends Serializable> {
 	public Long countByName(String name);
 
 	public Role saveRole(Role role);
+	
+	public Role getRole(String id);
 }

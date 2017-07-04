@@ -14,21 +14,24 @@
         </description>
 		<name>authenticate</name>
 		<tag-class>com.application.taglib.secure.SecurityTag</tag-class>
-		<body-content>scriptless</body-content>
+		<body-content>JSP</body-content>
 
 		<attribute>
 			<name>hasRole</name>
 			<type>java.lang.String</type>
+			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 
 		<attribute>
 			<name>hasAnyRole</name>
 			<type>java.lang.String</type>
+			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 
 		<attribute>
 			<name>hasPermission</name>
 			<type>java.lang.String</type>
+			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 
 	</tag>

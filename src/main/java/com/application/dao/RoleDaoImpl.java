@@ -25,4 +25,9 @@ public class RoleDaoImpl extends AbstractHibernateDao<Role> implements RoleDao<R
 	public Role saveRole(Role entity) {
 		return save(entity);
 	}
+
+	@Override
+	public Role getRole(String id) {
+		return get(id);
+	}
 }

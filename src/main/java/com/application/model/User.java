@@ -2,9 +2,7 @@ package com.application.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -42,7 +40,7 @@ public class User extends BaseDomain implements UserDetails {
 	@JoinTable(name = "User_Roles", joinColumns = {
 			@JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = {
 					@JoinColumn(name = "role_id", referencedColumnName = "id") })
-	private Set<Role> role = new HashSet<>();
+	private List<Role> role = new ArrayList<>();
 
 	public String getFirstName() {
 		return firstName;
@@ -84,11 +82,11 @@ public class User extends BaseDomain implements UserDetails {
 		this.userType = userType;
 	}
 
-	public Set<Role> getRole() {
+	public List<Role> getRole() {
 		return role;
 	}
 
-	public void setRole(Set<Role> role) {
+	public void setRole(List<Role> role) {
 		this.role = role;
 	}
 
@@ -129,7 +127,7 @@ public class User extends BaseDomain implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
-	
+
 	@Override
 	public boolean isCredentialsNonExpired() {
 		return true;

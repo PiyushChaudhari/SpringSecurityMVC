@@ -1,7 +1,7 @@
 package com.application.init;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,7 +86,7 @@ public class BootStrap implements ApplicationListener<ContextRefreshedEvent> {
 			adminUser.setEmail("piyu181203@gmail.com");
 			adminUser.setPasswordHash(passwordEncoder.encode("123"));
 			adminUser.setUserType(UserType.ADMIN);
-			Set<Role> roles = new HashSet<>();
+			List<Role> roles = new ArrayList<>();
 			roles.add(adminRole);
 			adminUser.setRole(roles);
 			userService.save(adminUser);
@@ -100,7 +100,7 @@ public class BootStrap implements ApplicationListener<ContextRefreshedEvent> {
 			adviserUser.setEmail("appu4u@gmail.com");
 			adviserUser.setPasswordHash(passwordEncoder.encode("123"));
 			adviserUser.setUserType(UserType.ADVISER);
-			Set<Role> adviserRoles = new HashSet<>();
+			List<Role> adviserRoles = new ArrayList<>();
 			adviserRoles.add(adviserRole);
 			adviserUser.setRole(adviserRoles);
 			userService.save(adviserUser);
@@ -113,7 +113,7 @@ public class BootStrap implements ApplicationListener<ContextRefreshedEvent> {
 			user.setEmail("saurabh16388@gmail.com");
 			user.setPasswordHash(passwordEncoder.encode("123"));
 			user.setUserType(UserType.USER);
-			Set<Role> userRoles = new HashSet<>();
+			List<Role> userRoles = new ArrayList<>();
 			userRoles.add(userRole);
 			user.setRole(userRoles);
 			userService.save(user);
