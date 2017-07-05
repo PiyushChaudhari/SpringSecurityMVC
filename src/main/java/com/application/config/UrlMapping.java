@@ -27,6 +27,7 @@ public class UrlMapping {
 	public static final String CONTROLLER_USER_PROFILE = "/profile";
 	public static final String CONTROLLER_USER_UPDATE_PROFILE = "/updateProfile";
 	public static final String CONTROLLER_USER_ACTIVE = "/active";
+	public static final String CONTROLLER_USER_EXPIRE_SESSION = "/expireSession/{id}";
 
 	public static String generateUrl(String... str) {
 		if (str.length == 0) {
@@ -72,6 +73,7 @@ public class UrlMapping {
 	public static final String PERMISSION_USER_PROFILE = "USER_PROFILE";
 	public static final String PERMISSION_USER_UPDATE_PROFILE = "USER_UPDATEPROFILE";
 	public static final String PERMISSION_USER_ACTIVE = "USER_ACTIVE";
+	public static final String PERMISSION_USER_EXPIRE_SESSION = "USER_EXPIRESESSION";
 
 	public static List<Permission> getPermissionListForAdmin() {
 
@@ -108,6 +110,10 @@ public class UrlMapping {
 		Permission userActiveList = new Permission();
 		userActiveList.setName(PERMISSION_USER_ACTIVE);
 		permissionList.add(userActiveList);
+
+		Permission userExpireSession = new Permission();
+		userExpireSession.setName(PERMISSION_USER_EXPIRE_SESSION);
+		permissionList.add(userExpireSession);
 
 		return permissionList;
 	}

@@ -90,4 +90,12 @@ public class UserController {
 		mv.addObject("userList", userService.getAllLoggedInUser());
 		return mv;
 	}
+
+	@RequestMapping(value = { UrlMapping.CONTROLLER_USER_EXPIRE_SESSION }, method = RequestMethod.GET)
+	public ModelAndView expireSession(@PathVariable String id, final RedirectAttributes redirectAttributes) {
+		userService.expireSession(id);
+		redirectAttributes.addFlashAttribute("success", "Session has been expire successfully.");
+		return new ModelAndView("redirect:"
+				+ new StringBuilder(UrlMapping.CONTROLLER_USER).append(UrlMapping.CONTROLLER_USER_ACTIVE).toString());
+	}
 }

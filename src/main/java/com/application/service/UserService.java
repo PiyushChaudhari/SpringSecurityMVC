@@ -27,4 +27,6 @@ public interface UserService {
 	public void updateLoggedInUser(User user);
 
 	public List<User> getAllLoggedInUser();
+
+	public void expireSession(String id);
 }

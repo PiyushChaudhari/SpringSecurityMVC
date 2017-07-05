@@ -10,17 +10,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>User List</title>
 <script type="text/javascript">
-function deleteUser(id) {
+function expireUserSession(id) {
   var txt = "";
-  if (confirm("Are you sure you want to delete this user?") == true) {
-    window.location.href = '${pageContext.request.contextPath}/user/delete/'
+  if (confirm("Are you sure you want to expire all session of this user?") == true) {
+    window.location.href = '${pageContext.request.contextPath}/user/expireSession/'
       + id;
   }
-}
-
-function editUser(id) {
-  window.location.href = '${pageContext.request.contextPath}/user/edit/'
-    + id;
 }
 </script>
 </head>
@@ -59,19 +54,12 @@ FDFSDFSDF
 				<c:when test="${!empty userList}">
 					<c:forEach items="${userList}" var="user">
 						<tr>
-							<td>
-								<%-- <c:out value="${employee.id}" /> --%> <a
-								href="${pageContext.request.contextPath}/user/show/${user.id}">
-									<c:out value="${user.id}" />
-							</a>
-							</td>
+							<td><c:out value="${user.id}" /></td>
 							<td><c:out value="${user.firstName}" /></td>
 							<td><c:out value="${user.lastName}" /></td>
 							<td><c:out value="${user.email}" /></td>
-							<td><a
-								href="${pageContext.request.contextPath}/user/edit/${user.id}">Edit|</a>
-								<a href="javascript:void('0')"
-								onclick="deleteUser('${user.id}')">Delete</a>
+							<td><a href="javascript:void('0')"
+								onclick="expireUserSession('${user.id}')"> Expire Session</a>
 						</tr>
 					</c:forEach>
 				</c:when>

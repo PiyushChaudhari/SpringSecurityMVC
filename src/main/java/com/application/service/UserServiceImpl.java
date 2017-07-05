@@ -97,8 +97,26 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> getAllLoggedInUser() {
 		User u = getLoggedInUser();
+
 		return sessionRegistry.getAllPrincipals().stream().map(user -> (User) user)
-				.filter(element -> !element.getEmail().equals(u.getEmail())).collect(Collectors.toList());
+				.flatMap(x -> sessionRegistry.getAllSessions(x, false).stream()).map(y -> (User) y.getPrincipal())
+				.filter(z -> !z.getEmail().equals(u.getEmail())).collect(Collectors.toList());
+
+		// return sessionRegistry.getAllPrincipals().stream().map(user -> (User)
+		// user)
+		// .filter(element ->
+		// !element.getEmail().equals(u.getEmail())).collect(Collectors.toList());
+	}
+
+	@Override
+	public void expireSession(String id) {
+		List<User> users = sessionRegistry.getAllPrincipals().stream().map(user -> (User) user)
+				.filter(element -> element.getId().equals(id)).collect(Collectors.toList());
+		users.forEach(user -> {
+			sessionRegistry.getAllSessions(user, false).stream().forEach(information -> {
+				information.expireNow();
+			});
+		});
 	}
 
 }

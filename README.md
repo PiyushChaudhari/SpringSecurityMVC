@@ -13,3 +13,4 @@ This application demonstrate how to use spring security in spring mvc applicatio
 8) Custom taglib to show/hide action based on user's role and permission.
 9) Prevent multiple login for same user (spring security concurrent user login prevention).
 10) Override spring security message as custom message.
+11) Expiring all Sessions of a LoggedIn Users.
