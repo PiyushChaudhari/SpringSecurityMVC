@@ -1,5 +1,6 @@
 package com.application.model;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,8 +20,8 @@ public class Role extends BaseDomain {
 	private static final long serialVersionUID = 1L;
 	private String name;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	private User user;
+	@ManyToMany(mappedBy = "role", cascade = CascadeType.ALL)
+	private Collection<User> users;
 
 	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	@JoinTable(name = "Role_Permissions",joinColumns = {
@@ -36,12 +37,20 @@ public class Role extends BaseDomain {
 		this.name = name;
 	}
 
-	public User getUser() {
-		return user;
+	// public User getUser() {
+	// return user;
+	// }
+	//
+	// public void setUser(User user) {
+	// this.user = user;
+	// }
+
+	public Collection<User> getUsers() {
+		return users;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUsers(final Collection<User> users) {
+		this.users = users;
 	}
 
 	public Set<Permission> getPermissions() {

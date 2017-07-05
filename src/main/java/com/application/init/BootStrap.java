@@ -118,6 +118,20 @@ public class BootStrap implements ApplicationListener<ContextRefreshedEvent> {
 			user.setRole(userRoles);
 			userService.save(user);
 		}
+		
+		if (userService.countByEmail("vipul.solanki@gmail.com") == 0) {
+			User adviserUser = new User();
+			adviserUser.setFirstName("Vipul");
+			adviserUser.setLastName("Solanki");
+			adviserUser.setEmail("vipul.solanki@gmail.com");
+			adviserUser.setPasswordHash(passwordEncoder.encode("123"));
+			adviserUser.setUserType(UserType.ADVISER);
+			List<Role> adviserRoles = new ArrayList<>();
+			adviserRoles.add(adviserRole);
+			adviserRoles.add(adminRole);
+			adviserUser.setRole(adviserRoles);
+			userService.save(adviserUser);
+		}
 		LOGGER.info("************* End Default Data *************");
 	}
 }

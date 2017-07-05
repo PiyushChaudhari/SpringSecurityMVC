@@ -46,7 +46,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> getAllUser() {
-		return userDao.getAllUser();
+		User u = getLoggedInUser();
+		return userDao.getAllUser().stream().map(user -> (User) user)
+				.filter(element -> !element.getEmail().equals(u.getEmail())).collect(Collectors.toList());
 	}
 
 	@Override
@@ -95,7 +97,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> getAllLoggedInUser() {
 		User u = getLoggedInUser();
-		return sessionRegistry.getAllPrincipals().stream().map(user -> (User)user).filter(element -> !element.getEmail().equals(u.getEmail())).collect(Collectors.toList());
+		return sessionRegistry.getAllPrincipals().stream().map(user -> (User) user)
+				.filter(element -> !element.getEmail().equals(u.getEmail())).collect(Collectors.toList());
 	}
 
 }

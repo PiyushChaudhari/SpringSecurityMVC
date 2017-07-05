@@ -11,7 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -36,11 +36,12 @@ public class User extends BaseDomain implements UserDetails {
 	@Enumerated(EnumType.STRING)
 	private UserType userType;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
+@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "User_Roles", joinColumns = {
 			@JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = {
 					@JoinColumn(name = "role_id", referencedColumnName = "id") })
-	private List<Role> role = new ArrayList<>();
+	private Collection<Role> role = new ArrayList<>();
 
 	public String getFirstName() {
 		return firstName;
@@ -82,22 +83,22 @@ public class User extends BaseDomain implements UserDetails {
 		this.userType = userType;
 	}
 
-	public List<Role> getRole() {
+	public Collection<Role> getRole() {
 		return role;
 	}
 
-	public void setRole(List<Role> role) {
+	public void setRole(Collection<Role> role) {
 		this.role = role;
 	}
 
 	public void addRole(Role role) {
 		this.role.add(role);
-		role.setUser(this);
+//		role.setUser(this);
 	}
 
 	public void removeRole(Role role) {
 		this.role.add(role);
-		role.setUser(null);
+//		role.setUser(null);
 	}
 
 	@Override
