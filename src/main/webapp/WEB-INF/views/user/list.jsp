@@ -30,31 +30,15 @@ function editUser(id) {
 </script>
 </head>
 <body>
-	<h1 align="center">User List</h1>
+	<h3 align="center">User List</h3>
 
-	<div align="center">
-		<sec:authorize access="isAuthenticated()">
-	Welcome, 
-	<sec:authentication property="principal.firstName" />
-		<sec:authentication property="principal.lastName" />
-		<a href="${pageContext.request.contextPath}/auth/signOut">Logout</a> 
-		| <a href="${pageContext.request.contextPath}/user/profile">Profile</a>
+	<jsp:include page="/WEB-INF/views/common/menuLinks.jsp"></jsp:include>
 
-		<secure:authenticate
-			hasPermission="<%=com.application.config.UrlMapping.PERMISSION_USER_ACTIVE%>">
-			| <a href="${pageContext.request.contextPath}/user/active">LoggedIn
-				Users</a>
-		</secure:authenticate>
-
-	</sec:authorize>
-	</div>
-	
 	<c:if test="${success !=null}">
 		<h6 align="center">
 			<c:out value="${success}" />
 		</h6>
 	</c:if>
-	<br>
 	<br>
 	<table align="center" border="1">
 		<thead>

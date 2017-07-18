@@ -12,13 +12,22 @@
 <body>
 	<h1 align="center">Login</h1>
 
-	<dir class="center">
+	<div class="center">
 		<form:form method="POST"
 			action="${pageContext.request.contextPath}/auth/signIn"
 			commandName="loginCommandObject">
 
-			<table>
+			<table align="center">
 
+				<c:if test="${error !=null}">
+					<tr>
+						<td colspan="2"></td>
+					</tr>
+				</c:if>
+				<tr>
+					<td colspan="2" style="color: red;" ><c:out value="${error}" /></td>
+				</tr>
+				
 				<tr>
 					<td><form:label path="email">Email:</form:label></td>
 					<td><form:input path="email"
@@ -30,19 +39,15 @@
 							value="${loginCommandObject.password}" /></td>
 				</tr>
 
-				<c:if test="${error !=null}">
-					<tr>
-						<td colspan="2"></td>
-					</tr>
-				</c:if>
+				
 				<tr>
-					<td colspan="2"><c:out value="${error}" /></td>
+					<td colspan="2" align="center" ><input type="submit" value="Login" /></td>
 				</tr>
 			</table>
 			<input type="hidden" name="${_csrf.parameterName}"
 				value="${_csrf.token}" />
-			<input type="submit" value="Login" />
+			
 		</form:form>
-	</dir>
+	</div>
 </body>
 </html>

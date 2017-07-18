@@ -20,24 +20,16 @@ function expireUserSession(id) {
 </script>
 </head>
 <body>
-	<h1 align="center">User List</h1>
-	<sec:authorize access="hasAnyRole('ROLE_ADMIN')">
-FDFSDFSDF
-</sec:authorize>
-
-	<sec:authorize access="isAuthenticated()">
-	Welcome, 
-	<sec:authentication property="principal.firstName" />
-		<sec:authentication property="principal.lastName" />
-		<a href="${pageContext.request.contextPath}/auth/signOut">Logout</a>| 
-		<a href="${pageContext.request.contextPath}/user/profile">Profile</a>
-	</sec:authorize>
+	<h3 align="center">LoggedIn User List</h3>
+	
+	<jsp:include page="/WEB-INF/views/common/menuLinks.jsp"></jsp:include>
 
 	<c:if test="${success !=null}">
 		<h6 align="center">
 			<c:out value="${success}" />
 		</h6>
 	</c:if>
+	<br>
 	<table align="center" border="1">
 		<thead>
 			<tr>

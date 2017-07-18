@@ -24,7 +24,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan("com.application.*")
-@Import(value = { SecurityConfig.class })
+@Import(value = { SecurityConfig.class,TilesConfig.class })
 @EnableTransactionManagement
 @PropertySource("classpath:${spring.profiles.active}-application.properties")
 public class AppConfig {

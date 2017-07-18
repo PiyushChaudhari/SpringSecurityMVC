@@ -13,15 +13,9 @@
 </head>
 <body>
 
-	<sec:authorize access="isAuthenticated()">
-	Welcome, 
-	<sec:authentication property="principal.firstName" />
-		<sec:authentication property="principal.lastName" />
-		<a href="${pageContext.request.contextPath}/auth/signOut">Logout</a>
-
-	</sec:authorize>
-
-	<dir class="center">
+	<jsp:include page="/WEB-INF/views/common/menuLinks.jsp"></jsp:include>
+	<br>
+	<div class="center">
 		<c:if test="${success !=null}">
 			<h6 align="center">
 				<c:out value="${success}" />
@@ -33,7 +27,7 @@
 			commandName="user">
 			<form:hidden path="id" value="${user.id}" />
 			<form:hidden path="version" value="${user.version}" />
-			<table>
+			<table align="center">
 				<tr>
 					<td><form:label path="firstName">First Name:</form:label></td>
 					<td><form:input path="firstName" value="${user.firstName}" /></td>
@@ -49,7 +43,7 @@
 				</tr>
 
 				<tr>
-					<td colspan="2"><input type="submit" value="Save" /> <%-- <input
+					<td colspan="2" align="center"><input type="submit" value="Save" /> <%-- <input
 						type="button" value="Cancle"
 						onclick="window.location.href='${pageContext.request.contextPath}/user/list'" /> --%>
 					</td>
@@ -59,7 +53,7 @@
 
 		</form:form>
 
-	</dir>
+	</div>
 
 </body>
 </html>

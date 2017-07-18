@@ -15,6 +15,7 @@
 		<!-- various -->
 		<hibernate-validator.version>5.1.1.Final</hibernate-validator.version>
 		<!-- <javassist.version>3.12.1-GA</javassist.version> -->
+		<tiles.version>3.0.7</tiles.version>
 	</properties>
 	<dependencies>
 
@@ -110,6 +111,12 @@
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
+		</dependency>
+		
+		<dependency>
+    		<groupId>org.apache.tiles</groupId>
+    		<artifactId>tiles-extras</artifactId>
+    		<version>${tiles.version}</version>
 		</dependency>
 
 		<dependency>

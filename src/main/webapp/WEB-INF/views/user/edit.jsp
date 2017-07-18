@@ -11,14 +11,14 @@
 </head>
 <body>
 
-	<dir class="center">
+	<div class="center">
 
 		<form:form method="POST"
 			action="${pageContext.request.contextPath}/user/update"
 			commandName="user">
 			<form:hidden path="id" value="${user.id}" />
 			<form:hidden path="version" value="${user.version}" />
-			<table>
+			<table align="center">
 				<tr>
 					<td><form:label path="firstName">First Name:</form:label></td>
 					<td><form:input path="firstName" value="${user.firstName}" /></td>
@@ -34,7 +34,7 @@
 				</tr>
 
 				<tr>
-					<td colspan="2"><input type="submit" value="Save" /> <input
+					<td colspan="2" align="center"><input type="submit" value="Save" /> <input
 						type="button" value="Cancle"
 						onclick="window.location.href='${pageContext.request.contextPath}/user/list'" />
 					</td>
@@ -49,7 +49,7 @@
 
 		</form:form>
 
-	</dir>
+	</div>
 
 </body>
 </html>

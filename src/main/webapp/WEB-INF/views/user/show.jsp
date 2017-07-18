@@ -11,9 +11,9 @@
 </head>
 <body>
 
-	<dir class="center">
+	<div class="center">
 		<c:set var="userDeatils" value="${user}"></c:set>
-		<table>
+		<table align="center">
 			<tr>
 				<td>First Name:</td>
 				<td><c:out value="${userDeatils.firstName}" /></td>
@@ -31,11 +31,17 @@
 			<tr>
 				<td colspan="2"></td>
 			</tr>
+			
+			<tr>
+				<td colspan="2" align="center">
+				<input type="button" value="Back"
+			onclick="window.location.href='${pageContext.request.contextPath}/user/list'" />
+				</td>
+			</tr>
 		</table>
 
-		<input type="button" value="Back"
-			onclick="window.location.href='${pageContext.request.contextPath}/user/list'" />
-	</dir>
+		
+	</div>
 
 </body>
 </html>
