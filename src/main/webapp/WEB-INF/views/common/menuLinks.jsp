@@ -22,18 +22,25 @@
 	<sec:authentication property="principal.firstName" />
 			<sec:authentication property="principal.lastName" />
 			<a href="${pageContext.request.contextPath}/auth/signOut">Logout</a> 
-		| <a href="${pageContext.request.contextPath}/user/profile">Profile</a>
+		
 
-			<secure:authenticate
-				hasPermission="<%=com.application.config.UrlMapping.PERMISSION_USER_LIST%>">
-			| <a href="${pageContext.request.contextPath}/user/list">
-					User List</a>
+			<c:if test="${actionName !='profile'}">
+					| <a href="${pageContext.request.contextPath}/user/profile">Profile</a>
+			</c:if>
+			<secure:authenticate hasPermission="<%=com.application.config.UrlMapping.PERMISSION_USER_LIST%>">
+					<c:if test="${actionName !='list'}">
+					| 	<a href="${pageContext.request.contextPath}/user/list">
+							User List
+						</a>
+					</c:if>
 			</secure:authenticate>
 			
-			<secure:authenticate
-				hasPermission="<%=com.application.config.UrlMapping.PERMISSION_USER_ACTIVE%>">
-			| <a href="${pageContext.request.contextPath}/user/active">LoggedIn
-					Users</a>
+			<secure:authenticate hasPermission="<%=com.application.config.UrlMapping.PERMISSION_USER_ACTIVE%>">
+					<c:if test="${actionName !='active'}">
+					| 	<a href="${pageContext.request.contextPath}/user/active">
+							LoggedIn Users
+						</a>
+					</c:if>
 			</secure:authenticate>
 
 		</sec:authorize>

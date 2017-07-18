@@ -8,12 +8,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="shortcut icon" href="<c:url value="/resources/icons/spring-security-project.ico"/>"/>
+<link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">
 </head>
 <body>
 	<div align="center">
 		<h4>Spring MVC Example</h4>
 	</div>
-	
 	<hr />
 </body>
 </html>
