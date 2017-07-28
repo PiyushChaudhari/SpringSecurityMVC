@@ -6,12 +6,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.application.config.UrlMapping;
 import com.application.model.User;
 import com.application.service.UserService;
+import com.application.taglib.pagination.Paginator;
 
 @RequestMapping(UrlMapping.CONTROLLER_USER)
 @Controller
@@ -20,11 +22,18 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
+	@Autowired
+	Paginator paginator;
+
 	@RequestMapping(value = { UrlMapping.CONTROLLER_USER, UrlMapping.CONTROLLER_USER_LIST }, method = RequestMethod.GET)
-	public ModelAndView list() {
+	public ModelAndView list(@RequestParam(value = "offset", required = false) Integer offset,
+			@RequestParam(value = "max", required = false) Integer max) {
+		paginator.setOffset( offset != null ? offset :0);
+		paginator.setMax(max != null ? max :5);
 		ModelAndView mv = new ModelAndView(
 				new StringBuilder(UrlMapping.CONTROLLER_USER).append(UrlMapping.CONTROLLER_USER_LIST).toString());
-		mv.addObject("userList", userService.getAllUser());
+		mv.addObject("userList", userService.getAllUser(paginator));
+		mv.addObject("userListTotal", userService.getAllUserTotal());
 		return mv;
 	}
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.application.base.persistance.AbstractHibernateDao;
 import com.application.model.User;
+import com.application.taglib.pagination.Paginator;
 
 @Repository
 public class UserDaoImpl extends AbstractHibernateDao<User> implements UserDao<User> {
@@ -63,5 +64,22 @@ public class UserDaoImpl extends AbstractHibernateDao<User> implements UserDao<U
 				.createQuery("select count(*) from com.application.model.User where email = :email");
 		query.setParameter("email", email);
 		return (Long) query.uniqueResult();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<User> getAllUser(Paginator paginator) {
+		Query query = getAbstractHibernateTemplate().getSessionFactory().getCurrentSession()
+				.createQuery("from com.application.model.User");
+		query.setFirstResult(paginator.getOffset());
+		query.setMaxResults(paginator.getMax());
+		return query.list();
+	}
+
+	@Override
+	public Integer getAllUserTotal() {
+		Query query = getAbstractHibernateTemplate().getSessionFactory().getCurrentSession()
+				.createQuery("select count(*) from com.application.model.User");
+		return ((Long) query.uniqueResult()).intValue();
 	}
 }

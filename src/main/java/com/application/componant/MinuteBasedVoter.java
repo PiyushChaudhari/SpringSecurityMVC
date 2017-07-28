@@ -2,11 +2,14 @@ package com.application.componant;
 
 import java.util.Collection;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.FilterInvocation;
+import org.springframework.web.util.UrlPathHelper;
 
 import com.application.config.UrlMapping;
 
@@ -26,6 +29,8 @@ public class MinuteBasedVoter implements AccessDecisionVoter<Object> {
 
 		FilterInvocation fi = (FilterInvocation) object;
 		String currentUrl = fi.getRequestUrl();
+
+		
 		// System.out.println("Bypass:> " +
 		// UrlMapping.byPassUrlList().contains(currentUrl));
 		// System.out.println("LogOutUrl:> " +
@@ -35,7 +40,23 @@ public class MinuteBasedVoter implements AccessDecisionVoter<Object> {
 				|| UrlMapping.getLogOutUrl().equals(currentUrl)) {
 			return ACCESS_GRANTED;
 		}
-		String urlDivider[] = currentUrl.split("/");
+//		String urlDivider[] = currentUrl.split("/");
+//
+//		StringBuilder sb = new StringBuilder();
+//		if (urlDivider.length > 0)
+//			sb.append(urlDivider[1]);
+//		if (urlDivider.length > 1)
+//			sb.append("_" + urlDivider[2]);
+//
+//		String url = sb.toString().toUpperCase();
+//		 System.out.println("Current URL:> " + url);
+		
+		HttpServletRequest req = (HttpServletRequest) fi.getRequest();
+
+		String currenturl = new UrlPathHelper().getPathWithinApplication(req);
+		String url = new StringBuilder(currenturl.replaceFirst("/", "").replace("/", "_")).toString().trim().toUpperCase();
+		
+		String urlDivider[] = currenturl.split("/");
 
 		StringBuilder sb = new StringBuilder();
 		if (urlDivider.length > 0)
@@ -43,8 +64,9 @@ public class MinuteBasedVoter implements AccessDecisionVoter<Object> {
 		if (urlDivider.length > 1)
 			sb.append("_" + urlDivider[2]);
 
-		String url = sb.toString().toUpperCase();
-		// System.out.println("Current URL:> " + url);
+		url = sb.toString().toUpperCase();
+		 System.out.println("Current URL:> " + url);
+		 
 		// System.out.println("Current URL:> " +
 		// authentication.getAuthorities().contains(url));
 		// System.out.println("Current URL:> " + authentication.getAuthorities());
