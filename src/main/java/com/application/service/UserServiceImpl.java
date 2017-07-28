@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.application.componant.CustomAuthenticationProvider;
 import com.application.dao.UserDao;
 import com.application.model.User;
+import com.application.taglib.pagination.Paginator;
 
 @Service
 @Transactional
@@ -117,6 +118,16 @@ public class UserServiceImpl implements UserService {
 				information.expireNow();
 			});
 		});
+	}
+
+	@Override
+	public List<User> getAllUser(Paginator paginator) {
+		return userDao.getAllUser(paginator);
+	}
+
+	@Override
+	public Integer getAllUserTotal() {
+		return userDao.getAllUserTotal();
 	}
 
 }

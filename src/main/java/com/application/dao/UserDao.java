@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.application.model.User;
+import com.application.taglib.pagination.Paginator;
 
 public interface UserDao<T extends Serializable> {
 
@@ -16,6 +17,10 @@ public interface UserDao<T extends Serializable> {
 	public void updateUser(User user);
 
 	public List<User> getAllUser();
+	
+	public List<User> getAllUser(Paginator paginator);
+	
+	public Integer getAllUserTotal();
 
 	public User getUser(String id);
 

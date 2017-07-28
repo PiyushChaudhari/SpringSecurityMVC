@@ -9,6 +9,9 @@
 
 <%@ taglib prefix="secure"
 	uri="http://www.springframework.org/secure/tags"%>
+	
+<%@ taglib prefix="p"
+	uri="http://www.springframework.org/pagination"%>
 
 <html>
 <head>
@@ -81,10 +84,16 @@ function editUser(id) {
 					</tr>
 				</c:otherwise>
 			</c:choose>
+			
 		</tbody>
 		<tfoot>
 		</tfoot>
 	</table>
-
+	<c:if test="${userListTotal !=null && (param.max !=null ? (param.max < 5 ? true : false) : (userListTotal > 5 ? true : false))}">
+		<div class="pagination">
+				<p:paginate total="${userListTotal}" maxsteps="5" offset="${param.offset != null ? param.offset : 0}" max="${param.max !=null ? (param.max < 5 ? param.max : 5) : 5}"></p:paginate>
+		</div>
+	</c:if>
+	
 </body>
 </html>

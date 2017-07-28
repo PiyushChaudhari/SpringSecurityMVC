@@ -3,6 +3,7 @@ package com.application.service;
 import java.util.List;
 
 import com.application.model.User;
+import com.application.taglib.pagination.Paginator;
 
 public interface UserService {
 
@@ -13,6 +14,10 @@ public interface UserService {
 	public User save(User user);
 
 	public List<User> getAllUser();
+	
+	public List<User> getAllUser(Paginator paginator);
+	
+	public Integer getAllUserTotal();
 
 	public User get(String id);
 
