@@ -42,17 +42,16 @@ public class PaginateTag extends TagSupport {
 
 		if (total == null)
 			throw new IllegalArgumentException("Total is mission.");
-		
-		System.out.println("total: "+total);
-		System.out.println("offset: "+offset);
-		System.out.println("max: "+max);
+
+		System.out.println("total: " + total);
+		System.out.println("offset: " + offset);
+		System.out.println("max: " + max);
 
 		Boolean steps = maxsteps > 0;
 
 		Integer currentstep = ((offset / max)) + 1;
 		Integer firststep = 1;
 		Integer laststep = new Long(Math.round(Math.ceil(total / max))).intValue();
-
 
 		// display previous link when not on firststep unless omitPrev is true
 		if (currentstep > firststep && !omitPrev) {
@@ -177,8 +176,19 @@ public class PaginateTag extends TagSupport {
 		uriComponentsBuilder.scheme(pageContext.getRequest().getScheme());
 		uriComponentsBuilder.port(pageContext.getRequest().getServerPort());
 		uriComponentsBuilder.host(pageContext.getRequest().getServerName());
-		uriComponentsBuilder
-				.path(pageContext.getRequest().getAttribute("javax.servlet.forward.request_uri").toString());
+		if (getController() == null && getAction() == null) {
+			uriComponentsBuilder
+					.path(pageContext.getRequest().getAttribute("javax.servlet.forward.request_uri").toString());
+		} else {
+			StringBuilder sb = new StringBuilder();
+			sb.append(pageContext.getRequest().getServletContext().getContextPath());
+			if (getController() != null)
+				sb.append("/").append(getController());
+			if (getAction() != null)
+				sb.append("/").append(getAction());
+
+			uriComponentsBuilder.path(sb.toString());
+		}
 		for (String key : map.keySet()) {
 			uriComponentsBuilder.queryParam(key, map.get(key));
 		}
