@@ -15,3 +15,6 @@ This application demonstrate how to use spring security in spring mvc applicatio
 10) Override spring security message as custom message.
 11) Expiring all Sessions of a LoggedIn Users.
 12) How to implement apache tiles template engine for multiple layout on JSP page.
+
+
+https://snyk.io/blog/spring-boot-security-best-practices
